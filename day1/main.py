@@ -15,3 +15,7 @@ with open("input.txt", "r") as f:
 
 sumd = [sum(x) for x in cals]
 print(max(sumd))
+
+# part 2
+sumd.sort(reverse=True)
+print(sumd[0] + sumd[1] + sumd[2])
