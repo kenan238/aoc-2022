@@ -4,34 +4,34 @@ const { createInterface } = require('readline');
 
 const computeEdges = (x, y, grid) => {
   const edges = [
-		grid[y].slice(0, x),
-		grid.map(row => row[x]).slice(0, y),
-		grid[y].slice(x + 1),
-		grid.map(row => row[x]).slice(y + 1),
-	];
+    grid[y].slice(0, x),
+    grid.map(row => row[x]).slice(0, y),
+    grid[y].slice(x + 1),
+    grid.map(row => row[x]).slice(y + 1),
+  ];
 
   return edges;
 };
 
 const isVisible = (x, y, grid) => {
   const edges = computeEdges(x, y, grid);
-	return edges.some(dir => dir.every(tree => tree < grid[y][x]));
+  return edges.some(dir => dir.every(tree => tree < grid[y][x]));
 };
 
 const computeScenicScore = (x, y, grid) => {
-	const edges = [
-		grid[y].slice(0, x).reverse(),
-		grid.map(row => row[x]).slice(0, y).reverse(), // can't use compute edges here because of .reverse()
-		grid[y].slice(x + 1),
-		grid.map(row => row[x]).slice(y + 1),
-	];
+  const edges = [
+    grid[y].slice(0, x).reverse(),
+    grid.map(row => row[x]).slice(0, y).reverse(), // can't use compute edges here because of .reverse()
+    grid[y].slice(x + 1),
+    grid.map(row => row[x]).slice(y + 1),
+  ];
 
-	const result = edges.map(edge => {
-		const tallerTree = edge.findIndex(tree => tree >= grid[y][x]);
-		if (tallerTree === -1) 
+  const result = edges.map(edge => {
+    const tallerTree = edge.findIndex(tree => tree >= grid[y][x]);
+    if (tallerTree === -1) 
       return edge.length;
-		return tallerTree + 1;
-	});
+    return tallerTree + 1;
+  });
 
   return result.reduce((a, b) => a * b)
 };
