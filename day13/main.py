@@ -1,3 +1,5 @@
+# aoc day 13
+# was a relief from yesterday's
 from json import loads
 lines = []
 packet_pairs = []
