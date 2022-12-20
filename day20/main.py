@@ -1,22 +1,11 @@
 # aoc 20 - a good relief, and as we all know, reliefs end with hell
 # not excited for tomorrow
 
-import time
-
 encrypted = []
-
-def timed(func):
-	def time():
-		start = time.time()
-		func()
-		end = time.time()
-		printf("----- RAN IN %.2f SECONDS -----" % end - start)
-	return time
 
 with open(r"input.txt") as f:
 	encrypted = [int(x) for x in f.readlines()]
 
-@timed
 def mix_dec(iterations=1):
 	length = len(encrypted) # too lazy to retype len(encrypted) lol
 	indices = list(range(length))
