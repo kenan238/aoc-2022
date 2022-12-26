@@ -1,8 +1,6 @@
 from collections import deque, namedtuple
 
-MOVES = [(0, 1), (0, -1), (1, 0), (-1, 0), (0, 0)]
-
-Blizzards = namedtuple('Blizzards', ['rows', 'cols', 'left', 'right', 'up', 'down'])
+blizzards = namedtuple('Blizzards', ['rows', 'cols', 'left', 'right', 'up', 'down'])
 
 def parse(data):
     lines = [l[1:-1] for l in data.splitlines()[1:-1]] # Cut off walls
@@ -11,7 +9,7 @@ def parse(data):
     right = frozenset((r, c) for r in range(rows) for c in range(cols) if lines[r][c] == '>')
     up = frozenset((r, c) for r in range(rows) for c in range(cols) if lines[r][c] == '^')
     down = frozenset((r, c) for r in range(rows) for c in range(cols) if lines[r][c] == 'v')
-    return Blizzards(rows, cols, left, right, up, down)
+    return blizzards(rows, cols, left, right, up, down)
 
 def shortest_path(blizz, start, end, start_time):
     visited = set()
@@ -28,7 +26,7 @@ def shortest_path(blizz, start, end, start_time):
         visited.add((r, c, t))
         if (r, c) == end:
             return t + 1
-        for dr, dc in MOVES:
+        for dr, dc in [(0, 1), (0, -1), (1, 0), (-1, 0), (0, 0)]:
             nr, nc = r + dr, c + dc
             if 0 <= nr < blizz.rows and 0 <= nc < blizz.cols and is_free(blizz, nr, nc, t + 1):
                 q.append((nr, nc, t + 1))
